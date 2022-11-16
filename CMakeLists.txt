@@ -3,4 +3,4 @@ project(CS-221_Assignment2)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(main.cpp)
+add_executable(CS-221_Assignment2 main.cpp)
