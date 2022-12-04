@@ -8,4 +8,14 @@ file(GLOB P1
         "P1/*.cpp"
         )
 
-add_executable(CS-221_Assignment2 ${P1})
+file(GLOB P2
+        "P2/*h"
+        "P2/*.cpp"
+        )
+
+file(GLOB P3
+        "P3/*h"
+        "P3/*.cpp"
+        )
+
+add_executable(CS-221_Assignment2 ${P3})

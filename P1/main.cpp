@@ -18,7 +18,7 @@
 #include "depart.h"
 using namespace std;
 
-bool event_less(Event* a, Event *b);
+bool event_less(Event *a, Event *b);
 
 int main() {
 
@@ -36,6 +36,6 @@ int main() {
     return 0;
 }
 
-bool event_less(Event* a, Event *b) {
+bool event_less(Event *a, Event *b) {
     return a->get_time() > b->get_time();
 }
