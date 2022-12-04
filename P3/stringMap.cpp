@@ -6,24 +6,13 @@
 
 template <class T>
 StringMap<T>::StringMap(string key, T value) {
-    Node temp {pair(key, value), nullptr, nullptr};
-    linkedList[hashFunction(key)] = temp;
+    total_size = 0;
+    set(key, value);
 }
 
 template <class T>
 int StringMap<T>::size() {
-    int   size{};
-    Node* temp;
-
-    for (int i{}; i < 10; i++) {
-        temp = linkedList[i];
-        if (temp != nullptr) size++;  // TODO Make sure Node starts as a nullptr.
-        while (temp->next != nullptr) {
-            temp = temp->next;
-            size++;
-        }
-    }
-    return size;
+    return total_size;
 }
 
 template <class T>
@@ -38,32 +27,37 @@ int StringMap<T>::count(string key) {
 }
 
 template <class T>
-void StringMap<T>::erase(string key) {
+void StringMap<T>::erase(string key) {  // Capable of erasing elements.
     int index = hashFunction(key);
-    Node* prev;
-
-    for (Node n : linkedList) {
-        if (n.key_value.first == key) {
-            prev->next = n->next;
-            delete n;
+    Node* prev, temp = linkedList[index];
+    while (temp != nullptr) {
+        if (temp.key_value.first == key) {
+            prev->next = temp->next;
+            delete temp;
+            total_size--;
             return;
         }
-        prev = n;
-        n = n->next;
+        prev = temp;
+        temp = temp->next;
     }
+
+    throw std::out_of_range(nullptr);
 }
 
 template <class T>
-void StringMap<T>::set(string key, T value) {
+void StringMap<T>::set(string key, T value) {  // Capable of adding elements.
     int index = hashFunction(key);
-    for (Node n : linkedList) {
-        if (n.key_value.first == key) {
-            n.key_value.second = value;
+    Node* temp = linkedList[index];
+    while (temp != nullptr) {
+        if (temp->key_value.first == key) {
+            temp->key_value.second = value;
             return;
         }
+        temp = temp->next;
     }
-    // Create an insert function.
 
+    temp->next = new Node{pair(key, value), nullptr};
+    total_size++;
 }
 
 template <class T>
@@ -77,5 +71,8 @@ int StringMap<T>::hashFunction(const string& key) const {
 template <class T>
 T StringMap<T>::operator[](string key) {
     int index = hashFunction(key);
-    return linkedList[index].key_value.second;
+    Node* temp = linkedList(index);
+    while (temp != nullptr) {
+        if (temp->key_value.first == key) return temp->key_value.second;
+    } throw std::out_of_range(nullptr);
 }

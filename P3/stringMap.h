@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <stdexcept>
 #include "keyLength.h"
 using std::string;
 using std::pair;
@@ -88,6 +89,7 @@ private:
     };
 
     vector<Node> linkedList;  ///< A vector to keep track of the hashed indexes for the StringMap.
+    int          total_size;  ///< To store the number of Nodes in the hash table.
 };
 
 
