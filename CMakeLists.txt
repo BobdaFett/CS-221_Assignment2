@@ -18,4 +18,4 @@ file(GLOB P3
         "P3/*.cpp"
         )
 
-add_executable(CS-221_Assignment2 ${P3})
+add_executable(CS-221_Assignment2 ${P2})

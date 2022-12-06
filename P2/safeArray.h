@@ -66,7 +66,7 @@ public:
     /**
      * @return The size of the SafeArray.
      */
-    int get_size();
+    int get_size() const;
 
     /**
      * Inserts an element to the list while sorted, maintaining sorting.
@@ -102,19 +102,11 @@ public:
     friend std::ostream& operator<<(std::ostream& out, SafeArray arr);
 
 private:
-
-    /// The current size of the SafeArray.
-    int size;
-
-    /// The minimum value accepted by the SafeArray.
-    int min;
-
-    /// The maximum value accepted by the SafeArray.
-    int max;
-
-    /// The array of all elements in the array.
-    int* elements;
+    int  size;      ///< The current size of the SafeArray.
+    int  min;       ///< The minimum value accepted by the SafeArray.
+    int  max;       ///< The maximum value accepted by the SafeArray.
+    int* elements;  ///< The array of all elements in the array.
+    bool has_max;   ///< Determines if the SafeArray was created with a maximum value in mind.
 };
-
 
 #endif //CS_221_ASSIGNMENT2_SAFEARRAY_H
