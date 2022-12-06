@@ -8,7 +8,6 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
-#include "keyLength.h"
 using std::string;
 using std::pair;
 using std::vector;
@@ -18,14 +17,27 @@ using std::vector;
  * Should use open hashing with an array/vector of linked lists.
  * @tparam T The type of value to store.
  */
-template <class T>
+template <typename T>
 class StringMap {
 public:
+    /**
+     * A functor that simply compares the length of two keys.
+     */
+    struct KeyLength {
+        /**
+         * @return A boolean value if key a is larger than key b.
+         * @param a The first key to check.
+         * @param b The second key to check.
+         */
+        bool operator()(string a, string b) {
+            return a.length() > b.length();
+        }
+    };
 
     /**
      * Creates an empty StringMap object.
      */
-    StringMap() = default;
+    StringMap();
 
     /**
      * Creates a StringMap with a key-value pair already created.
@@ -37,7 +49,7 @@ public:
     /**
      * @return The size of the StringMap.
      */
-    int size();
+    int size() { return total_size; };
 
     /**
      * @return The number of elements with the specified key.
@@ -79,7 +91,6 @@ public:
     T operator[](string key);
 
 private:
-
     /**
      * Implementation of a linked list.
      */

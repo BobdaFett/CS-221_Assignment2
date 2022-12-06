@@ -4,19 +4,14 @@
 
 #include "stringMap.h"
 
-template <class T>
-StringMap<T>::StringMap(string key, T value) {
+template <typename T> StringMap<T>::StringMap() : total_size(0) {}
+
+template <typename T> StringMap<T>::StringMap(string key, T value) {
     total_size = 0;
     set(key, value);
 }
 
-template <class T>
-int StringMap<T>::size() {
-    return total_size;
-}
-
-template <class T>
-int StringMap<T>::count(string key) {
+template <typename T> int StringMap<T>::count(string key) {
     Node* temp = linkedList[hashFunction(key)];
     int size{};
     while (temp != nullptr) {
@@ -26,8 +21,7 @@ int StringMap<T>::count(string key) {
     return size;
 }
 
-template <class T>
-void StringMap<T>::erase(string key) {  // Capable of erasing elements.
+template <typename T> void StringMap<T>::erase(string key) {  // Capable of erasing elements.
     int index = hashFunction(key);
     Node* prev, temp = linkedList[index];
     while (temp != nullptr) {
@@ -44,8 +38,7 @@ void StringMap<T>::erase(string key) {  // Capable of erasing elements.
     throw std::out_of_range(nullptr);
 }
 
-template <class T>
-void StringMap<T>::set(string key, T value) {  // Capable of adding elements.
+template <typename T> void StringMap<T>::set(string key, T value) {  // Capable of adding elements.
     int index = hashFunction(key);
     Node* temp = linkedList[index];
     while (temp != nullptr) {
@@ -60,16 +53,14 @@ void StringMap<T>::set(string key, T value) {  // Capable of adding elements.
     total_size++;
 }
 
-template <class T>
-int StringMap<T>::hashFunction(const string& key) const {
+template <typename T> int StringMap<T>::hashFunction(const string& key) const {
     int sum{};
     for (char c : key)
         sum += c;
     return sum;
 }
 
-template <class T>
-T StringMap<T>::operator[](string key) {
+template <typename T> T StringMap<T>::operator[](string key) {
     int index = hashFunction(key);
     Node* temp = linkedList(index);
     while (temp != nullptr) {
